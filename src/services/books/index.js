@@ -127,6 +127,7 @@ booksRouter.delete("/:asin", async (req, res, next) => {
   }
 });
 
+
 booksRouter.get("/:asin/comments", async (req, res, next) => {
   try {
     const books = await getBooks()
@@ -189,5 +190,29 @@ booksRouter.post("/:asin/comments", async (req, res, next) => {
     next(error);
   }
 });
+
+booksRouter.delete("/:asin/comments/:commentID", async(req, res, next => {
+  try {
+    const books = await getBooks()
+    const bookIndex = books.findIndex(book => book.asin === req.params.asin)
+
+    if (bookIndex !== -1) {
+
+      let updatedComments = books[bookIndex].comments.filter(comment => comment.CommentID !== req.params.commentID)
+
+      books[bookIndex].comments = updatedComments
+
+      await writeBooks(books)
+      req.send(books)
+    } else {
+      const error = new Error()
+      error.httpStatusCode = 404
+      next(error)
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}))
 
 module.exports = booksRouter;
