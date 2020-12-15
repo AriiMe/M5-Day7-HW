@@ -14,7 +14,7 @@ const {
 
 const server = express()
 
-const port = process.env.PORT || 3001 // the fallback is for local development, heroku will use his own port, something like 12312, because imagine how many processes are running on the same machine there
+const port = process.env.PORT || 3001 
 
 server.use(express.json())
 
@@ -30,7 +30,7 @@ const corsOptions = {
       callback(null, true)
     } else {
       // Not allowed
-      callback(new Error("NOT ALLOWED - CORS ISSUES"))
+      callback(new Error("CORS ISSUES"))
     }
   },
 }
