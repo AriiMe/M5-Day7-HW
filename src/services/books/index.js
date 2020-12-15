@@ -191,9 +191,9 @@ booksRouter.post("/:asin/comments", async (req, res, next) => {
   }
 });
 
-booksRouter.delete("/:asin/comments/:commentID", async(req, res, next => {
+booksRouter.delete("/:asin/comments/:commentID", async (req, res, next) => {
   try {
-    const books = await getBooks()
+    const books = await getBooks();
     const bookIndex = books.findIndex(book => book.asin === req.params.asin)
 
     if (bookIndex !== -1) {
@@ -213,6 +213,6 @@ booksRouter.delete("/:asin/comments/:commentID", async(req, res, next => {
     console.log(error)
     next(error)
   }
-}))
+})
 
 module.exports = booksRouter;
